@@ -1,0 +1,130 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    height: 100vh; /* 100% da altura da viewport */
+    position: fixed; /* Fixa a barra lateral para que ela não role com a página */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px; /* Ajuste a largura conforme necessário */
+    background-color: #f8f9fa; /* Cor de fundo da sidebar */
+    overflow-y: auto; /* Se o conteúdo for maior que a altura da tela, ele vai rolar */
+}
+
+/* Estilos para o header */
+header {
+    background-color: #ffffff; /* Cor de fundo para o header */
+    padding: 15px; /* Espaçamento interno */
+    display: flex; /* Layout flexível para alinhar o conteúdo */
+    justify-content: space-between; /* Alinha o título à esquerda e as informações do usuário à direita */
+    align-items: center; /* Alinha verticalmente os itens */
+    position: fixed; /* Fixa o header no topo da tela */
+    top: 0; /* Fixa o header no topo */
+    left: 250px; /* Garante que o header fique ao lado da sidebar, assumindo que a sidebar tem 250px de largura */
+    right: 0; /* Faz o header ocupar o restante da largura da tela */
+    height: 60px; /* Define a altura do header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra */
+    z-index: 1000; /* Garante que o header fique acima de outros elementos */
+}
+
+/* Estilos para a informação do usuário no header */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaçamento entre o nome e o ícone de notificação */
+}
+
+.user-info span {
+    font-size: 14px;
+    color: #333; /* Cor do texto */
+}
+
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6a00; /* Cor do logo */
+}
+
+.menu {
+    list-style-type: none;
+    padding: 3;
+}
+
+.menu li {
+    margin: 15px 0;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+.user-info {
+    font-size: 16px;
+}
+
+.search-bar {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    background-color: #ff6a00; /* Cor do botão */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+h2 {
+    margin-top: 20px;
+    font-size: 24px;
+}
+
+.quick-actions, .process-open {
+    display: flex;
+    flex-wrap: nowrap; /* Isso impede a quebra de linha */
+    gap: 10px; /* Adiciona espaçamento entre os itens */
+}
+
+.action-card {
+    flex: 1; /* Isso permite que os itens cresçam igualmente, se desejado */
+    min-width: 150px; /* Define uma largura mínima para os cartões */
+    padding: 20px; /* Adiciona padding interno aos cartões */
+    background-color: #f8f9fa; /* Cor de fundo clara para os cartões */
+    border: 1px solid #dee2e6; /* Borda leve */
+    border-radius: 5px; /* Bordas arredondadas */
+    text-align: center; /* Centraliza o texto */
+    cursor: pointer; /* Muda o cursor para indicar interatividade */
+}
+
+
+.action-card:hover {
+    background-color: #e0e0e0;
+}

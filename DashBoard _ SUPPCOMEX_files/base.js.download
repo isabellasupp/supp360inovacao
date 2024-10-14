@@ -1,0 +1,182 @@
+function formatarData(data) {
+    if (!data || data === "") {
+        return "";
+    }
+
+    const options = {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    };
+
+    const dataFormatada = new Date(data).toLocaleString('pt-BR', options);
+    return dataFormatada.replace(',', '');
+}
+
+
+function loader(parametro) {
+    var preloader = $("#preloader");
+    if (!parametro) { 
+        // Defina a visibilidade como "hidden" e a opacidade como 0 para torná-lo invisível
+        preloader.css("visibility", "hidden");
+        preloader.css("opacity", 0);
+    } else {
+        // Defina a visibilidade como "visible" e a opacidade como 1 para torná-lo visível
+        preloader.css("visibility", "visible");
+        preloader.css("opacity", 1);
+    }
+}
+
+
+function formatarCNPJ(cnpj) {
+    if (!cnpj) {
+        // Se o CNPJ for nulo ou vazio, retorna uma string vazia
+        return '';
+    }
+
+    cnpj = cnpj.replace(/\D/g, ''); // Remove qualquer caracter que não seja número
+
+    // Formata o CNPJ
+    cnpj = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+
+    return cnpj;
+}
+
+
+function formatarDataHora(data) {
+    if (!data) {
+        // Se a data for nula, retorna uma string vazia
+        return '';
+    }
+
+    var dataFormatada = new Date(data);
+    if (isNaN(dataFormatada)) {
+        return '';
+    }
+
+    var ano = dataFormatada.getFullYear();
+    var mes = ("0" + (dataFormatada.getMonth() + 1)).slice(-2);
+    var dia = ("0" + dataFormatada.getDate()).slice(-2);
+
+    // Verifica se a data original era apenas uma data, não uma data e hora
+    if (data.toString().length === 10) { 
+        return `${dia}-${mes}-${ano}`
+    } else { // Data e tempo
+        var hora = ("0" + dataFormatada.getHours()).slice(-2);
+        var minuto = ("0" + dataFormatada.getMinutes()).slice(-2);
+        return `${dia}-${mes}-${ano} ${hora}:${minuto}`
+        
+    }
+}
+
+
+// Essa função nao trás para o datetime do servidor local -3, o banco ja está em -3
+function formatarDataHora2(data) {
+    // Supondo que 'data' seja uma string no formato 'Fri, 05 Mar 2021 14:30:00 GMT'
+    // e você quer transformar para '05-03-2021 14:30'
+
+    // Primeiro, verifique se a data não é nula ou indefinida
+    if (!data) {
+        return '';
+    }
+
+    // Divida a string em partes
+    var partes = data.split(' ');
+    
+    // Crie um objeto com os meses para converter o nome do mês para número
+    var meses = {
+        Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06',
+        Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12'
+    };
+
+    // Extraia as partes relevantes da data
+    var dia = partes[1];
+    var mes = meses[partes[2]];
+    var ano = partes[3];
+    var hora = partes[4].substring(0, 5); // Corta os segundos
+
+    // Formate a data no padrão desejado
+    var dataFormatada = `${dia}-${mes}-${ano} ${hora}`;
+
+    return dataFormatada;
+}
+
+function formatarApenasData(data) {
+    if (!data) {
+        // Se a data for nula, retorna uma string vazia
+        return '';
+    }
+
+    var dataFormatada = new Date(data);
+    if (isNaN(dataFormatada)) {
+        return '';
+    }
+
+    var ano = dataFormatada.getFullYear();
+    var mes = ("0" + (dataFormatada.getMonth() + 1)).slice(-2);
+    var dia = ("0" + dataFormatada.getDate()).slice(-2);
+
+    // Verifica se a data original era apenas uma data, não uma data e hora
+    if (data.toString().length === 10) { 
+        return `${dia}-${mes}-${ano}`
+    } else { // Data e tempo
+        var hora = ("0" + dataFormatada.getHours()).slice(-2);
+        var minuto = ("0" + dataFormatada.getMinutes()).slice(-2);
+        return `${dia}-${mes}-${ano} `
+    }
+}
+
+function formatarTelefone(telefone) {
+    if (!telefone) {
+        // Se o telefone for nulo ou vazio, retorna uma string vazia
+        return '';
+    }
+
+    telefone = telefone.replace(/\D/g, ''); // Remove qualquer caractere que não seja número
+
+    // Verifica o tamanho do telefone para formatá-lo corretamente
+    if (telefone.length === 10) {
+        // Formato: 34 3232-9368
+        telefone = telefone.replace(/^(\d{2})(\d{4})(\d{4})/, '$1 $2-$3');
+    } else if (telefone.length === 11) {
+        // Formato: 34 9 3232-9368
+        telefone = telefone.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})/, '$1 $2 $3-$4');
+    } else {
+        return 'Número de telefone inválido';
+    }
+
+    return telefone;
+}
+function tempoDecorrido(dataHora) {
+    // Converte a data e hora fornecida para um objeto Date
+    let dataFornecida = new Date(dataHora);
+
+    // Obtém a data e hora atual em GMT
+    let dataAtual = new Date();
+
+    // Ajusta a data atual para GMT
+    dataAtual.setMinutes(dataAtual.getMinutes() - dataAtual.getTimezoneOffset());
+
+    // Calcula a diferença em milissegundos
+    let diferenca = dataAtual - dataFornecida;
+
+    // Converte a diferença para minutos
+    let minutos = Math.floor(diferenca / 60000);
+
+    // Converte a diferença para horas
+    let horas = Math.floor(minutos / 60);
+
+    // Converte a diferença para dias
+    let dias = Math.floor(horas / 24);
+
+    if (minutos < 60) {
+        return minutos + " minutos atrás";
+    } else if (horas < 24) {
+        return horas + " horas atrás";
+    } else {
+        return dias + " dias atrás";
+    }
+}

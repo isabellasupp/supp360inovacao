@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-BR" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
+    data-sidebar-image="none">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>{{sessao_titulo}} | {{g.SITE_TITULO}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Sistema de Gestão Supporte Logistica" name="description" />
+    <meta content="Luis Oliveira" name="author" />
+    <!-- App favicon -->
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{{url_for('static' ,filename='images/favicon.ico')}}">
+
+    <!-- Layout config Js -->
+    <script src="{{url_for('static' ,filename='js/layout.js')}}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{{url_for('static' ,filename='css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{url_for('static' ,filename='css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{{url_for('static' ,filename='css/app.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="{{url_for('static' ,filename='css/custom.min.css')}}" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body class=" min-vh-100">
+    <body class=" min-vh-100">
+        <div class="container-fluid min-vh-100">
+            <div class="row">
+                <div class="col-md-9 bg-primary" style="background-image: url(&#39;/static/images/bg.jpg&#39;); background-repeat: no-repeat;
+                background-size: cover;">
+    
+                </div>
+            <div class="col-md-3 d-flex justify-content-center align-items-center min-vh-100">
+                <div class="row">
+                    <div class="p-lg-5 p-4 col-md-12">
+                        <div class="text-center">
+                            <a href="/" class="d-block">
+                                <img src="{{url_for('static' ,filename='images/logo-dark.png')}}" alt="" width="200" height="auto">
+                            </a>
+                            <h5 class="text-primary text-center mt-5">Bem-vindo !</h5>
+                            <p class="text-muted text-center">Faça o login no {{g.SITE_TITULO}} para acessar o sistema.</p>
+                        </div>
+
+                        <div class="mt-4">
+
+                            <form method="POST" action="/login">
+                                {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert alert-danger  mb-4 text-center" role="alert">
+                                    <strong>{{ message }}</strong>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                                {% endwith %}
+                                <div class="mb-3">
+                                    <label for="usuario" class="form-label">Usuário</label>
+                                    <input type="text" class="form-control" id="usuario" name="email"
+                                        placeholder="Digite Usuário">
+                                </div>
+
+                                <div class="mb-3 ">
+                                    <div class="float-end d-none">
+                                        <a href="/authentication/auth-pass-reset-cover" class="text-muted">Esqueceu sua
+                                            senha?</a>
+                                    </div>
+                                    <label class="form-label" for="password-input">Senha</label>
+                                    <div class="position-relative auth-pass-inputgroup mb-3">
+                                        <input type="password" name="senha" class="form-control pe-5 password-input"
+                                            placeholder="Digite sua senha" id="password-input">
+                                        <button
+                                            class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
+                                            type="button" id="password-addon"><i
+                                                class="ri-eye-fill align-middle"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" name="remember" type="checkbox" value=""
+                                        id="auth-remember-check">
+                                    <label class="form-check-label" for="auth-remember-check">Lembrar-me</label>
+                                </div>
+
+                                <div class="mt-4">
+                                    <button class="btn btn-primary w-100" type="submit">Entrar</button>
+                                </div>
+
+                                <div class="mt-4 text-center d-none">
+                                    <div class="signin-other-title">
+                                        <h5 class="fs-13 mb-4 title">Sign In with</h5>
+                                    </div>
+
+                                    <div>
+                                        <button type="button"
+                                            class="btn btn-primary btn-icon waves-effect waves-light"><i
+                                                class="ri-facebook-fill fs-16"></i></button>
+                                        <button type="button"
+                                            class="btn btn-danger btn-icon waves-effect waves-light"><i
+                                                class="ri-google-fill fs-16"></i></button>
+                                        <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i
+                                                class="ri-github-fill fs-16"></i></button>
+                                        <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i
+                                                class="ri-twitter-fill fs-16"></i></button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+
+                    </div>
+                    <div class="col-lg-12 ">
+                        <div class="text-center">
+                            <p class="mb-0">&copy;
+                                <script>document.write(new Date().getFullYear())</script> {{g.SITE_TITULO}}. <br> Criado por {{g.CRIADO_POR}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- end auth-page-wrapper -->
+
+    <!-- JAVASCRIPT -->
+    <script src="{{url_for('static' ,filename='libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static' ,filename='libs/simplebar/dist/simplebar.min.js')}}"></script>
+    <script src="{{url_for('static' ,filename='libs/node-waves/dist/waves.min.js')}}"></script>
+    <script src="{{url_for('static' ,filename='libs/feather-icons/dist/feather.min.js')}}"></script>
+    <script src="{{url_for('static' ,filename='js/pages/plugins/lord-icon-2.1.0.js')}}"></script>
+    <script src="{{url_for('static' ,filename='js/plugins.js')}}"></script>
+
+    <!-- password-addon init -->
+    <script src="{{url_for('static' ,filename='js/pages/password-addon.init.js')}}"></script>
+</body>
+
+</html>
