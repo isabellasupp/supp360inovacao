@@ -4,7 +4,7 @@ import os
 from werkzeug.utils import secure_filename
 
 # Configuração do caminho para salvar os arquivos
-UPLOAD_FOLDER = r'C:\Users\edu.ferreira\Desktop\projeto\Supporte\anexos'
+UPLOAD_FOLDER = r'C:\wamp64\www\supp360\supp360inovacao\pasta_EDU\anexos'
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
