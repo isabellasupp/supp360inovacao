@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Incluindo as bibliotecas CSS -->
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css"> <!-- Caminho corrigido -->
-    <link rel="stylesheet" href="/static/css/app.min.css"> <!-- Caminho corrigido -->
-    <link rel="stylesheet" href="/static/css/custom.min.css"> <!-- Caminho corrigido -->
-    <link rel="stylesheet" href="/static/css/icons.min.css"> <!-- Caminho corrigido -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css"> <!-- Verifique o caminho -->
+    <link rel="stylesheet" href="/static/css/app.min.css"> <!-- Verifique o caminho -->
+    <link rel="stylesheet" href="/static/css/custom.min.css"> <!-- Verifique o caminho -->
+    <link rel="stylesheet" href="/static/css/icons.min.css"> <!-- Verifique o caminho -->
 
     <!-- Incluindo bibliotecas de ícones (Remix e Material Icons) -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 
     <style>
+        /* O estilo básico do site continua o mesmo */
         body {
             font-family: Arial, sans-serif;
         }
@@ -31,13 +32,38 @@
             font-size: 1.5em;
             margin-bottom: 20px;
         }
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
+        .sidebar .menu button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: transparent;
+            color: black;
+            border: none;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
         }
-        .sidebar ul li {
-            margin: 10px;
+        .sidebar .menu button:hover {
+            color: #FF6600; /* As letras ficam laranja ao passar o mouse */
         }
+        .submenu {
+            display: none;
+            margin-left: 20px;
+        }
+        .submenu button {
+            background-color: transparent;
+            color: black;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            text-align: left;
+            cursor: pointer;
+        }
+        .submenu button:hover {
+            color: #FF6600;
+        }
+
         .main-content {
             margin-left: 260px;
             padding: 20px;
@@ -86,6 +112,7 @@
         .btn:hover {
             background-color: #e65c00;
         }
+
     </style>
 
     <title>HOME</title>
@@ -95,9 +122,17 @@
         <div class="logo">
             <img src="https://github.com/paizaoo/supp360/raw/main/Image.png" width="200" height="auto" alt="Logo SUPP360">
         </div>
-        <ul class="menu">
-            <li>Home</li>
-        </ul>
+        <div class="menu">
+            <button onclick="location.href='#';">Home</button>
+            <button onclick="location.href='#';">New Tracking</button>
+            <button onclick="location.href='#';">Portal do Cliente</button>
+            <button onclick="location.href='#';">Torre de Controle</button>
+            <button id="canal-reclamacao">Canal de Reclamação</button>
+            <div class="submenu">
+                <button onclick="location.href='#';">Abrir Reclamações</button>
+                <button onclick="location.href='#';">Consulta Reclamações</button>
+            </div>
+        </div>
     </div>
 
     <div class="main-content">
@@ -125,32 +160,34 @@
                     <tr>
                         <td><input type="text" id="nome" name="nome" value="Ana Carolina" readonly></td>
                         <td><input type="email" id="email" name="email_corporativo" value="ana.carolina@bic.com" readonly></td>
-                        <td><input type="tel" id="telefone" name="ddd_telefone" placeholder="Telefone"></td>
+                        <td><input type="tel" id="telefone" name="ddd_telefone" placeholder="Telefone" required></td>
                         <td><input type="text" id="razao_social" name="razao_social" value="BIC AMAZONIA SA" readonly></td>
-                        <td><input type="text" id="nf" name="numero_nf" placeholder="Nota Fiscal"></td>
+                        <td><input type="text" id="nf" name="numero_nf" placeholder="Nota Fiscal" required></td>
                     </tr>
                     <tr>
                         <td colspan="5">
                             <label for="assunto">Assunto</label>
                             <select id="assunto" name="assunto" required>
                                 <option value="">Selecione</option>
-                                <option value="problemas_atrasos_entrega">Problemas/Atrasos na entrega</option>
-                                <option value="danos_transporte">Danos durante o transporte</option>
-                                <option value="problemas_suporte">Problemas com atendimento Suporte</option>
-                                <option value="reclamacao_nao_conformidade">Reclamação de não conformidade - Tratativa de Qualidade</option>
-                                <option value="reclamacoes_comerciais">Reclamações comerciais</option>
-                                <option value="outros_assuntos">Outros assuntos</option>
+                                <option value="Problemas/Atrasos na entrega">Problemas/Atrasos na entrega</option>
+                                <option value="Danos durante o transporte">Danos durante o transporte</option>
+                                <option value="Problemas com atendimento Suporte">Problemas com atendimento Suporte</option>
+                                <option value="Reclamação de não conformidade - Tratativa de Qualidade">Reclamação de não conformidade - Tratativa de Qualidade</option>
+                                <option value="Reclamações comerciais">Reclamações comerciais</option>
+                                <option value="Outros assuntos">Outros assuntos</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="5">
                             <label for="descricao">Descrição da Reclamação</label>
-                            <textarea id="descricao" name="descricao_reclamacao" rows="4" placeholder="Descrição" style="width: 100%;"></textarea>
+                            <textarea id="descricao" name="descricao_reclamacao" rows="4" placeholder="Descrição" style="width: 100%;" required></textarea>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="5">
+                            <label class="anx"  for="file">Anexo</label>
+                            <input type="file" id="file" name="file" multiple>
                             <button class="btn" type="submit">Enviar</button>
                         </td>
                     </tr>
@@ -159,20 +196,23 @@
         </div>
     </div>
 
+    <!-- Script para exibir uma mensagem de sucesso ao enviar o formulário -->
     <script>
-        // Função para exibir a mensagem de sucesso e limpar os campos
         function showSuccessMessage() {
-            // Exibe um alerta de sucesso
-            alert("Chamado criado com sucesso!");
-
-            // Limpa os campos 'DDD + Telefone' e 'Número da NF'
-            document.getElementById("telefone").value = "";
-            document.getElementById("nf").value = "";
-            document.getElementById("descricao").value = "";
-
-            // Permite que o formulário seja enviado
-            return true;
+            alert("Reclamação enviada com sucesso!");
+            return true;  // Permite o envio do formulário após exibir a mensagem
         }
+
+        // Função para exibir/ocultar o submenu ao clicar em "Canal de Reclamação"
+        document.getElementById('canal-reclamacao').addEventListener('click', function() {
+            var submenu = this.nextElementSibling;
+            if (submenu.style.display === 'block') {
+                submenu.style.display = 'none';
+            } else {
+                submenu.style.display = 'block';
+            }
+        });
     </script>
+
 </body>
 </html>
