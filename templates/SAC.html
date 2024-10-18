@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Incluindo as bibliotecas CSS -->
-    <link rel="stylesheet" href="Supporte/static/css/bootstrap.min 1.css"> <!-- Verifique o caminho -->
-    <link rel="stylesheet" href="Supporte/static/css/app.min.css"> <!-- Verifique o caminho -->
-    <link rel="stylesheet" href="Supporte/static/css/custom.min 1.css"> <!-- Verifique o caminho -->
-    <link rel="stylesheet" href="Supporte/static/css/icons.min 1.css"> <!-- Verifique o caminho -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/app.min.css">
+    <link rel="stylesheet" href="/static/css/custom.min.css">
+    <link rel="stylesheet" href="/static/css/icons.min.css">
 
     <!-- Incluindo bibliotecas de ícones (Remix e Material Icons) -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
@@ -93,7 +93,7 @@
 <body>
     <div class="sidebar">
         <div class="logo">
-            <img src="https://github.com/paizaoo/supp360/raw/main/Image.png" width="200" height="auto" alt="Logo SUPP360">
+            <img src="/static/images/Image.png" width="200" height="auto" alt="Logo SUPP360">
         </div>
         <ul class="menu">
             <li>Home</li>
@@ -112,7 +112,6 @@
         <br><br><br>
 
         <div class="table-form">
-            <!-- Certifique-se de que o action está correto -->
             <form id="sac" action="/submit" method="POST" enctype="multipart/form-data">
                 <table>
                     <tr>

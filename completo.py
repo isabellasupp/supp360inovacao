@@ -9,11 +9,12 @@ from email.mime.base import MIMEBase
 from email import encoders
 
 # Configuração do caminho para salvar os arquivos
-UPLOAD_FOLDER = r'C:\Users\edu.ferreira\Desktop\projeto\Supporte\anexos' # colocar caminho relativo
+UPLOAD_FOLDER = os.path.join('supp360inovacao', 'pasta_EDU', 'anexos')
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
 
 class AppFlask:
     def __init__(self):
+        # Configura a pasta de templates como 'templates', onde deve estar o SAC.html
         self.app = Flask(__name__)
         self.app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
         self.app.secret_key = os.urandom(24)
@@ -22,12 +23,14 @@ class AppFlask:
     # Configuração do banco de dados PostgreSQL
     def get_db_connection(self):
         try:
+            # Adiciona a codificação UTF-8 para evitar problemas de caracteres especiais
             conn = psycopg2.connect(
                 host="localhost",
                 port=5432,
                 database="demo",  # Nome do banco de dados
                 user="postgres",  # Usuário do PostgreSQL
-                password="root"   # Senha do PostgreSQL
+                password="root",  # Senha do PostgreSQL
+                options='-c client_encoding=UTF8'  # Garante que a codificação seja UTF-8
             )
             return conn
         except psycopg2.OperationalError as e:
@@ -53,11 +56,12 @@ class AppFlask:
         msg.attach(MIMEText(conteudo, 'plain'))
 
         if anexo_path:
-            part = MIMEBase('application', 'octet-stream')
-            part.set_payload(open(anexo_path, 'rb').read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', f'attachment; filename={os.path.basename(anexo_path)}')
-            msg.attach(part)
+            with open(anexo_path, 'rb') as file:
+                part = MIMEBase('application', 'octet-stream')
+                part.set_payload(file.read())
+                encoders.encode_base64(part)
+                part.add_header('Content-Disposition', f'attachment; filename={os.path.basename(anexo_path)}')
+                msg.attach(part)
 
         try:
             server = smtplib.SMTP(smtp_server, smtp_port)
@@ -88,17 +92,12 @@ class AppFlask:
             file_path = None
 
             # Verificar se um arquivo foi enviado
-            if 'file' not in request.files:
-                flash('Nenhum arquivo enviado.')
-                return redirect(url_for('sac_form'))
-
-            file = request.files['file']
-
-            # Verificar se o arquivo é permitido
-            if file and self.allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file_path = os.path.join(self.app.config['UPLOAD_FOLDER'], filename)
-                file.save(file_path)
+            if 'file' in request.files:
+                file = request.files['file']
+                if file and self.allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file_path = os.path.join(self.app.config['UPLOAD_FOLDER'], filename)
+                    file.save(file_path)
 
             # Conectar ao banco de dados
             conn = self.get_db_connection()
